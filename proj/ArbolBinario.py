@@ -1,9 +1,16 @@
 from NodoBinario import NodoBinario
+from collections import deque
 
 class ArbolBinario:
 
-    def es_arbol_vacio(self):
+    def __init__(self):
         self.raiz = None
+    
+    def getraiz(self):
+        return self.raiz
+    
+    def setraiz(self, nodo):
+        self.raiz = nodo
 
     def insertar(self, valor):
         if self.raiz is None:
@@ -22,6 +29,46 @@ class ArbolBinario:
                 nodo_actual.hijoDerecho = NodoBinario(valor)
             else:
                 self._insertar_recursivo(nodo_actual.hijoDerecho, valor)
+
+    def es_hoja(self, valor):
+        nodo = self._buscar_recursivo(self.raiz, valor)
+        if nodo is None:
+            return False
+        return nodo.hijoIzquierdo is None and nodo.hijoDerecho is None
+
+    def altura(self):
+        return self._altura_recursiva(self.raiz)
+    
+    def _altura_recursiva(self, nodo_actual):
+        if nodo_actual is None:
+            return -1
+        altura_izquierda = self._altura_recursiva(nodo_actual.hijoIzquierdo)
+        altura_derecha = self._altura_recursiva(nodo_actual.hijoDerecho)
+        return 1 + max(altura_izquierda, altura_derecha)
+    
+    def cantidad(self):
+        return self._cantidad_recursiva(self.raiz)
+
+    def _cantidad_recursiva(self, nodo_actual):
+        if nodo_actual is None:
+            return 0
+        return 1 + self._cantidad_recursiva(nodo_actual.hijoIzquierdo) + self._cantidad_recursiva(nodo_actual.hijoDerecho)
+    
+    def amplitud(self):
+        if self.raiz is None:
+            return []
+
+        valores = []
+        cola = deque([self.raiz])
+        while cola:
+            nodo_actual = cola.popleft()
+            valores.append(nodo_actual.dato)
+
+            if nodo_actual.hijoIzquierdo:
+                cola.append(nodo_actual.hijoIzquierdo)
+            if nodo_actual.hijoDerecho:
+                cola.append(nodo_actual.hijoDerecho)
+        return valores
 
     def buscar(self, valor):
         return self._buscar_recursivo(self.raiz, valor) is not None
