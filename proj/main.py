@@ -41,3 +41,15 @@ print(f"¿El valor {valor_buscar_1} se encuentra en el árbol? {resultado_1}")
 valor_buscar_2 = 99
 resultado_2 = mi_arbol.buscar(valor_buscar_2)
 print(f"¿El valor {valor_buscar_2} se encuentra en el árbol? {resultado_2}")
+
+altura_del_arbol = mi_arbol.altura()
+print(f"La altura del árbol es: {altura_del_arbol}")
+
+cantidad_nodos = mi_arbol.cantidad()
+print(f"La cantidad total de nodos en el árbol es: {cantidad_nodos}")
+
+recorrido_amplitud = mi_arbol.amplitud()
+print(f"El recorrido del árbol en amplitud es: {recorrido_amplitud}")
+
+print(f"¿El nodo con valor 20 es una hoja? {mi_arbol.es_hoja(20)}")
+print(f"¿El nodo con valor 20 es una hoja? {mi_arbol.es_hoja(200)}")
